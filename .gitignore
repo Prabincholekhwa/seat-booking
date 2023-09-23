@@ -1,0 +1,14 @@
+.build
+dist
+node_modules
+.env
+.env.docker
+logs
+.yarnrc.yml
+.yarn
+*lock.json
+
+logs
+.vscode
+.serverless
+src/index.ts
