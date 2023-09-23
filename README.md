@@ -96,6 +96,9 @@ npm run build:watch
 # Start the server with automatic restart on code changes
 npm run start:watch
 
+# 
+Copy privateKey.pem & publicKey.pem from src to dist folder
+
 ## Usage
 To access all the features of the application, you can either log in using the following credentials:
 
