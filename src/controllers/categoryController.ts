@@ -44,6 +44,9 @@ export class VehicleCategoryController {
 
   static async lists(req: Request, res: Response): Promise<void> {
     try{
+      // console.log("session");
+      // console.log(req.session);
+      // console.log("session");
       let { search, offset, limit, order, sort } = req.query as any;
       offset = Number(offset) && Number(offset) > 0 ? Number(offset) - 1 : 0;
       limit = limit ? limit : pgMinLimit;

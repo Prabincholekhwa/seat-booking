@@ -1,4 +1,6 @@
 import bodyParser from "body-parser";
+import path from "path";
+import fs from 'fs';
 import cors, { CorsOptions } from "cors";
 import express, { Application } from "express";
 import http from "http";
@@ -7,6 +9,9 @@ import { Database } from "./models/instance";
 import { ProxyRouter as ProxyRouterPublic } from "./routes/public";
 import swaggerUI from "swagger-ui-express";
 import { optionsSwaggerUI, swaggerSpec } from "./utils";
+import cookieParser from "cookie-parser";
+require('dotenv').config();
+
 
 class App {
   private app: Application;
@@ -23,6 +28,7 @@ class App {
     this.app.set("port", process.env.PORT);
     this.app.use(express.json());
     this.app.use(cors(this.corsOptions));
+    this.app.use(cookieParser(process.env.PRIVATE_KEY));
     this.app.use("/api/v1", ProxyRouterPublic.map());
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));

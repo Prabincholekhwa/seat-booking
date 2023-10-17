@@ -39,7 +39,6 @@ class Authentication {
       expiresIn,
       user
     }
-
   }
 
   async authenticate(token: string, res:any): Promise<{ user: UserInterface } | boolean | any> {

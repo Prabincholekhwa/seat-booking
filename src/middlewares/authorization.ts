@@ -12,12 +12,11 @@ declare global {
 }
 
 export async function AuthorizationMiddleware(req: Request, res: Response, next: NextFunction) {
-  const token = req.headers.token?.toString() || req.headers.authorization?.toString();
-
+  const token = req.headers.token?.toString() || req.headers.authorization?.toString() || req.signedCookies["accessToken"];
   if (!token) {
     return errorResponseData(
       {
-        message: "Authorization Token Required",
+        message: "Access Token Required",
         res,
         statusCode: HttpStatusEnum.UNAUTHORIZED
       }

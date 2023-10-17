@@ -10,8 +10,11 @@ export class VehicleRouter extends RouterClass {
     super();
   }
   define(): void {
-    this.router.route("/").get(exceptionHandler(VehicleController.lists));
-
+    this.router.route("/").get(
+      AuthorizationMiddleware,
+      exceptionHandler(VehicleController.lists)
+    );
+    
     this.router
       .route("/create")
       .post(

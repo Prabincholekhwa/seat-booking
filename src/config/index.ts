@@ -34,7 +34,8 @@ export const port = parseInt(process.env.PORT!) as number,
     password: process.env.DB_PASSWORD!,
   } as {},
   corsWhitelist = [
-    "http://localhost:4000"
+    "http://localhost:4002",
+    "http://localhost:5173"
   ] as string[],
   /** Pagination */
   pgMinLimit = 10,

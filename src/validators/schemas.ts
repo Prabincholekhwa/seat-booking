@@ -19,8 +19,8 @@ const emailSchema = Joi.string()
 
 const phoneSchema = Joi.string()
   .min(7)
-  .max(15)
-  .pattern(/^([+]|[00]{2})([0-9]|[ -])*/);
+  .max(15);
+  // .pattern(/^([+]|[00]{2})([0-9]|[ -])*/);
 
   const idSchema = Joi.number().max(10).min(1);
 

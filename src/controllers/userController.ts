@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { HttpStatusEnum } from "../enums";
 import { UserService } from "../services";
 import { successResponseData, errorResponseData } from "../utils";
+require('dotenv').config();
 import redisClient from "../config/redisClients"
 
 export class UserController {
@@ -77,6 +78,13 @@ export class UserController {
     static async login(req: Request, res: Response): Promise<void> {
         try {
             const userData = await new UserService().login(req.body);
+            res.cookie("accessToken", userData.token,{
+                signed:true,
+                sameSite: "none",
+                httpOnly:true,
+                secure: true,
+                maxAge: 1000 * 60 * 60 * 1
+            });
             return successResponseData(
                 {
                     message: "Successful Login",
@@ -93,6 +101,23 @@ export class UserController {
         }
     }
 
+    static async logOut(req:Request, res: Response): Promise<void>{
+        try{
+            res.clearCookie("accessToken", {path:'/'})
+            return successResponseData({
+                res,
+                statusCode: HttpStatusEnum.OK,
+                message: "Successfully Logged Out"
+            })
+        }
+        catch(err){
+            console.log(err);
+            return errorResponseData({
+                message: `${err}`,
+                res
+            })
+        }
+    }
 
 }
 

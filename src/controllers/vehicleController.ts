@@ -46,8 +46,11 @@ export class VehicleController {
 
   static async lists(req: Request, res: Response): Promise<void> {
     try{
+      console.log("authdata");
+      console.log(req.authData.user);
       let { search, offset, limit, order, sort } = req.query as any;
     let categoryId = Number(req.query.categoryId)
+    console.log(categoryId);
     offset = Number(offset) && Number(offset) > 0 ? Number(offset) - 1 : 0;
     limit = limit ? limit : pgMinLimit;
     limit = Math.min(limit, pgMaxLimit);

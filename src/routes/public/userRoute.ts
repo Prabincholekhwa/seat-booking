@@ -28,6 +28,11 @@ export class UserRouter extends RouterClass {
         Validator.check(loginUser),
         exceptionHandler(UserController.login)
       );
+      this.router.route("/logout")
+      .delete(
+      AuthorizationMiddleware,
+      exceptionHandler(UserController.logOut)
+      );
   }
 }
 
