@@ -10,7 +10,9 @@ import { ProxyRouter as ProxyRouterPublic } from "./routes/public";
 import swaggerUI from "swagger-ui-express";
 import { optionsSwaggerUI, swaggerSpec } from "./utils";
 import cookieParser from "cookie-parser";
+import cookieSession from "cookie-session";
 require('dotenv').config();
+import { passport } from "./passport";
 
 
 class App {
@@ -20,7 +22,6 @@ class App {
   constructor() {
     this.app = express();
     this.server = new http.Server(this.app);
-
     this.configuration();
   }
 
@@ -29,6 +30,13 @@ class App {
     this.app.use(express.json());
     this.app.use(cors(this.corsOptions));
     this.app.use(cookieParser(process.env.PRIVATE_KEY));
+    this.app.use(cookieSession({
+      name:'session',
+      keys:["scret-key"],
+      maxAge: 1000 * 60 * 60
+        }));
+    this.app.use(passport.initialize());
+    this.app.use(passport.session());
     this.app.use("/api/v1", ProxyRouterPublic.map());
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));

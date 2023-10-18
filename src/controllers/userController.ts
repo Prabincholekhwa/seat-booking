@@ -119,5 +119,68 @@ export class UserController {
         }
     }
 
+
+    // Google Oauths
+    static async oauthLoginFailed (req:Request, res: Response): Promise<void>{
+        try{
+            return errorResponseData({
+                message: "Login Failed",
+                res
+            })
+        }
+        catch(err){
+            return errorResponseData({
+                message: `${err}`,
+                res
+            })
+        }
+    }
+
+    static async oauthLoginSuccess(req: Request, res: Response):Promise <void> {
+    try{
+        if(req.user){
+            return successResponseData(
+                {
+                    message: " Oauth Successful Login",
+                    res,
+                }
+            );
+        }
+        else {
+            return errorResponseData({
+                message: "Not Authorized",
+                res
+            })
+        }
+        }   
+    catch(err){
+        console.log(err);
+        return errorResponseData({
+            message: `${err}`,
+            res
+        });
+        }
+    }
+
+    static async oauthLogout(req: Request, res: Response): Promise <void>{
+        try{
+            res.clearCookie("session", {path:'/'})
+            res.clearCookie("session.sig", {path:'/'})
+            return successResponseData({
+                res,
+                statusCode: HttpStatusEnum.OK,
+                message: "Successfully Logged Out"
+            })
+        }
+        catch(err){
+            console.log(err);
+            return errorResponseData({
+                message: `${err}`,
+                res
+            })
+        }
+    }
+
+
 }
 
