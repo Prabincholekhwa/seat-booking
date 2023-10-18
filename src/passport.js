@@ -12,14 +12,6 @@ passport.use(
     },
       async(accessToken, refreshToken, issuer, profile, callback)=>{
         const userExist = await new UserService().userExist(profile._json.email);
-        console.log("accessToken");
-        console.log(accessToken);
-        console.log("refresh");
-        console.log(refreshToken);
-        console.log("issuer");
-        console.log(issuer);
-
-
         if(!userExist){
            await new UserService().OAuthcreate({
             email:profile._json.email,
