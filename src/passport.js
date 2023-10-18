@@ -1,6 +1,7 @@
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import passport from 'passport';
 require('dotenv').config();
+import { UserService } from  "./services"
 
 passport.use(
     new GoogleStrategy({
@@ -9,7 +10,22 @@ passport.use(
         callbackURL:"http://localhost:4002/api/v1/user/auth/google/callback",
         scope:["profile", "email"]
     },
-      (accessToken, refreshToken, profile, callback)=>{
+      async(accessToken, refreshToken, issuer, profile, callback)=>{
+        const userExist = await new UserService().userExist(profile._json.email);
+        console.log("accessToken");
+        console.log(accessToken);
+        console.log("refresh");
+        console.log(refreshToken);
+        console.log("issuer");
+        console.log(issuer);
+
+
+        if(!userExist){
+           await new UserService().OAuthcreate({
+            email:profile._json.email,
+             fullName: `${profile._json.name}`,
+              avatar: profile._json.picture ? profile._json.picture : null });
+        }
         callback(null, profile);
       }
     )

@@ -7,7 +7,7 @@ module.exports = {
       "users",
       [
         {
-          id: 1,
+          id: -1,
           email: "prabincholekhwa@gmail.com",
           full_name:"Prabin Cholekhwa",
           phone_number:"9761751097",

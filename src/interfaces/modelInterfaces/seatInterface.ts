@@ -17,7 +17,6 @@ export interface SeatInterface extends ModelTimestampExtend {
   uniqueCode: string;
   seatType: string;
   status: string;
-  
 }
 
 export interface SeatModelInterface

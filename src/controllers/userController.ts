@@ -164,8 +164,10 @@ export class UserController {
 
     static async oauthLogout(req: Request, res: Response): Promise <void>{
         try{
-            res.clearCookie("session", {path:'/'})
-            res.clearCookie("session.sig", {path:'/'})
+            console.log("Users");
+            console.log(req.user);
+            res.clearCookie("oAuthAccessToken", {path:'/'})
+            res.clearCookie("oAuthAccessToken.sig", {path:'/'})
             return successResponseData({
                 res,
                 statusCode: HttpStatusEnum.OK,

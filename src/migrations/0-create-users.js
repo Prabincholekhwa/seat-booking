@@ -20,12 +20,13 @@ module.exports = {
       },
       phone_number: {
         type: Sequelize.STRING(15),
-        allowNull: false,
         unique: true
       },
       password: {
-        type: Sequelize.STRING(70),
-        allowNull: false,
+        type: Sequelize.STRING(70)
+      },
+      avatar:{
+        type:Sequelize.STRING(150)
       },
       is_verified: {
         type: Sequelize.BOOLEAN,

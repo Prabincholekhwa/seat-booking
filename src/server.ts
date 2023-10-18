@@ -31,8 +31,8 @@ class App {
     this.app.use(cors(this.corsOptions));
     this.app.use(cookieParser(process.env.PRIVATE_KEY));
     this.app.use(cookieSession({
-      name:'session',
-      keys:["scret-key"],
+      name:'oAuthAccessToken',
+      keys:[`${process.env.PRIVATE_KEY}`],
       maxAge: 1000 * 60 * 60
         }));
     this.app.use(passport.initialize());

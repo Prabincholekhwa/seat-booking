@@ -1,4 +1,4 @@
-import { UserInterface, InputUserInterface, LoginResponseInterface } from "../interfaces";
+import { UserInterface, InputUserInterface, LoginResponseInterface, OAuthInputUserInterface } from "../interfaces";
 import { UserRepository } from "../repositories/userRepository";
 import { Password } from "../helpers"
 import { Mailsender, MailTemplate } from "../helpers";
@@ -83,6 +83,30 @@ export class UserService {
       }
       );
   }
+
+  async OAuthcreate(input: OAuthInputUserInterface): Promise<UserInterface> {
+    
+    const emailVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const emailOptions = {
+      to: `${input.email}`,
+      subject: "Verify Email",
+      text: "Please Verify Your Email",
+      html: MailTemplate.verifyEmailTempletae(`${input.fullName}`, Number(emailVerificationCode))
+    };
+
+    await redisClient.set(`${"otp" + input.email}`, `${emailVerificationCode}`, 'EX', 3600, 'NX');
+    await Mailsender.sendEmail(emailOptions)
+    const data = await this.repository.create(input);
+    return await this.repository.findByPk(data.id,
+      {
+        attributes: {
+          exclude:['password']
+        }
+      }
+      );
+  }
+
+  
 
   async updateIsVerifiedByEmail(id: number, email: string, status: boolean): Promise<number[]> {
       const isAlreadyVerified = await this.repository.updateOne({

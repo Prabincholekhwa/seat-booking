@@ -47,7 +47,7 @@ export class VehicleController {
   static async lists(req: Request, res: Response): Promise<void> {
     try{
       console.log("authdata");
-      console.log(req.authData.user);
+      console.log(req.authData.users);
       let { search, offset, limit, order, sort } = req.query as any;
     let categoryId = Number(req.query.categoryId)
     console.log(categoryId);

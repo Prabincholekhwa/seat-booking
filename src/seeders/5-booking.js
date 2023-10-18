@@ -8,7 +8,7 @@ module.exports = {
       [
         {
           id: -1,
-          passenger_id: 1,
+          passenger_id: -1,
           seat_id: -1,
           vehicle_id: 1,
           booking_status:"Confirmed",
@@ -17,7 +17,7 @@ module.exports = {
         },
         {
           id: -2,
-          passenger_id: 1,
+          passenger_id: -1,
           seat_id: -2,
           vehicle_id: 1,
           booking_status:"Confirmed",
@@ -26,7 +26,7 @@ module.exports = {
         },
         {
           id: -3,
-          passenger_id: 1,
+          passenger_id: -1,
           seat_id: -48,
           vehicle_id: 2,
           booking_status:"Pending",
@@ -35,7 +35,7 @@ module.exports = {
         },
         {
           id: -4,
-          passenger_id: 1,
+          passenger_id: -1,
           seat_id: -49,
           vehicle_id: 2,
           booking_status:"Pending",

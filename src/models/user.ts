@@ -28,12 +28,10 @@ const User = sequelize.define<UserModelInterface>(
       },
       phoneNumber: {
         type: Sequelize.STRING(15),
-        allowNull: false,
         field: "phone_number",
       },
       password: {
         type: Sequelize.STRING(70),
-        allowNull: false,
         field: "password"
       },
       isVerified: {
@@ -41,6 +39,10 @@ const User = sequelize.define<UserModelInterface>(
         defaultValue: false,
         field: "is_verified",
       },
+      avatar: {
+        type: Sequelize.STRING(150),
+        field:"avatar"
+      }
     },
     {
       timestamps: true,
