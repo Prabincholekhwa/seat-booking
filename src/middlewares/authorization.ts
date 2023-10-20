@@ -31,6 +31,7 @@ export async function AuthorizationMiddleware(req: Request, res: Response, next:
     email: _json.email
   },attributes: ['id', 'email']})
   req.authData = user;
+  req.authData.authMethod = 'Oauth';
   return next();
  }
   const data = await Authentication.authenticate(token.slice(6), res);

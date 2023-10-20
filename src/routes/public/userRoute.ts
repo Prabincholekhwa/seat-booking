@@ -53,11 +53,6 @@ export class UserRouter extends RouterClass {
         .get(
           exceptionHandler(UserController.oauthLoginSuccess)
         );
-
-        this.router.route("/auth/logout")
-        .delete(
-          exceptionHandler(UserController.oauthLogout)
-        )
   }
 }
 

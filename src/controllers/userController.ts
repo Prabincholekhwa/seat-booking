@@ -103,6 +103,11 @@ export class UserController {
 
     static async logOut(req:Request, res: Response): Promise<void>{
         try{
+
+            if(req.authData.authMethod = 'Oauth'){
+            res.clearCookie("oAuthAccessToken", {path:'/'})
+            res.clearCookie("oAuthAccessToken.sig", {path:'/'})
+            }
             res.clearCookie("accessToken", {path:'/'})
             return successResponseData({
                 res,
@@ -161,28 +166,5 @@ export class UserController {
         });
         }
     }
-
-    static async oauthLogout(req: Request, res: Response): Promise <void>{
-        try{
-            console.log("Users");
-            console.log(req.user);
-            res.clearCookie("oAuthAccessToken", {path:'/'})
-            res.clearCookie("oAuthAccessToken.sig", {path:'/'})
-            return successResponseData({
-                res,
-                statusCode: HttpStatusEnum.OK,
-                message: "Successfully Logged Out"
-            })
-        }
-        catch(err){
-            console.log(err);
-            return errorResponseData({
-                message: `${err}`,
-                res
-            })
-        }
-    }
-
-
 }
 
